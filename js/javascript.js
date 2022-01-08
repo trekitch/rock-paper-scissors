@@ -13,19 +13,27 @@ function computerPlay(){
 
 function playRound(playerSelection, computerSelection){
     //calculates a winner
-    //calculates a ties
-    if((playerSelection == 'rock' && computerSelection == 'rock') || (playerSelection == 'paper' && computerSelection == 'paper') || (playerSelection == 'scissors' && computerSelection == 'scissors')  ){
-        console.log("It's a tie!!!")
-    //paper beats roock
-    }else if(playerSelection == 'rock' && computerSelection == 'paper'){
-        console.log("You lose! Paper beats Rock!")
+    //paper beats rock
+
+    if(playerSelection == 'rock' && computerSelection == 'paper'){
+        return "You lose! Paper beats Rock.";
     }else if(playerSelection == 'paper' && computerSelection == 'rock'){
-        console.log("You win! Paper beats Rock")
+        return "You win! Paper beats Rock.";
     //rock beats scissors
-    }else if(playerSelection == 'scissors' && computerSelection == ''){
-
+    }else if(playerSelection == 'scissors' && computerSelection == 'rock'){
+        return "You lose! Rock beats Scissors."
+    }else if(playerSelection == 'rock' && computerSelection == 'scissors'){
+         return "You win! Rock beats Scissors."
+    //scissors beats paper
+    }else if(playerSelection == 'paper' && computerSelection == 'scissors'){
+        return "You lose! Scissors beats Paper."
+    }else if(playerSelection == 'scissors' && computerSelection == 'paper'){
+        return "You win! Scissors beats Paper."
+    }else{
+    //default is a tie
+        return "It's a tie";
     }
-
+    
 }
 
 //gets player selection
@@ -41,8 +49,34 @@ function game(){
     //keep track of points
     let compPoints = 0;
     let playerPoints = 0;
+    let gamesPlayed = 0;
+
+    while(gamesPlayed < 5){
+        let result = playRound(userPlay(),computerPlay())
+        if(result.includes("You win")){
+            ++playerPoints;
+        }else if(result.includes("You lose")){
+            ++compPoints;
+        }
+        console.log(result);
+        console.log("Player points: ", playerPoints)
+        console.log("Computer points: ", compPoints)
+        ++gamesPlayed
+    }
+
+    if(playerPoints > compPoints){
+        console.log("Player wins! Great job!")
+    }else if(compPoints > playerPoints){
+        console.log("Computer wins! Better luck next time.")
+    }else{
+        console.log("It's a tie!")
+    }
+
+
+
 }
 
 // computerPlay()
 // userPlay()
-playRound(userPlay(), computerPlay())
+//console.log(playRound(userPlay(), computerPlay()))
+game()
