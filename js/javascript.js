@@ -86,7 +86,4 @@ function game(){
 
 }
 
-// computerPlay()
-// userPlay()
-//console.log(playRound(userPlay(), computerPlay()))
 game()
