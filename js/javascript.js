@@ -1,4 +1,7 @@
-
+const container = document.querySelector('#container');
+const rock = document.createElement('button');
+const paper = document.createElement('button');
+const scissors = document.createElement('button');
 
 // computer picks rock, paper, or scissors
 function computerPlay(){
@@ -61,18 +64,31 @@ function game(){
     let playerPoints = 0;
     let gamesPlayed = 0;
 
-    while(gamesPlayed < 5){
-        let result = playRound(userPlay(),computerPlay())
-        if(result.includes("You win")){
-            ++playerPoints;
-        }else if(result.includes("You lose")){
-            ++compPoints;
-        }
-        console.log(result);
-        console.log("Player points: ", playerPoints)
-        console.log("Computer points: ", compPoints)
-        ++gamesPlayed
-    }
+
+    rock.textContent = 'Rock';
+    
+    paper.textContent = 'Paper';
+    
+    scissors.textContent = 'Scissors'
+
+    container.appendChild(rock);
+    container.appendChild(paper);
+    container.appendChild(scissors);
+
+    rock.addEventListener('click', () =>{
+        console.log("Rock");
+        console.log(playRound('rock', computerPlay()));
+    });
+
+    paper.addEventListener('click', () => {
+        console.log("Paper");
+        console.log(playRound('paper', computerPlay()));
+    });
+
+    scissors.addEventListener('click', () => {
+        console.log("Scissors");
+        console.log(playRound('scissors', computerPlay()));
+    });
 
     if(playerPoints > compPoints){
         console.log("Player wins! Great job!")
