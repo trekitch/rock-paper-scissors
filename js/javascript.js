@@ -1,7 +1,9 @@
 const container = document.querySelector('#container');
+const roundResult = document.querySelector('.roundResult');
 const rock = document.createElement('button');
 const paper = document.createElement('button');
 const scissors = document.createElement('button');
+const roundWinner = document.createElement('p');
 
 // computer picks rock, paper, or scissors
 function computerPlay(){
@@ -64,39 +66,47 @@ function game(){
     let playerPoints = 0;
     let gamesPlayed = 0;
 
-
-    rock.textContent = 'Rock';
-    
-    paper.textContent = 'Paper';
-    
+    //creates rps buttons
+    rock.textContent = 'Rock';    
+    paper.textContent = 'Paper';    
     scissors.textContent = 'Scissors'
 
+    //adds buttons to the container div
     container.appendChild(rock);
     container.appendChild(paper);
     container.appendChild(scissors);
 
-    rock.addEventListener('click', () =>{
-        console.log("Rock");
-        console.log(playRound('rock', computerPlay()));
+    //creates node list of buttons
+    const buttons = document.querySelectorAll('button');
+
+    //adds a click event listener to all the buttons
+    // pass the button choice to the playRound method as a strong
+    // result of play round is stored in string and added to p text to display win or
+    // lose
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            console.log(`Player choice: ${button.textContent}`)
+            let result = (playRound(button.textContent.toLowerCase(), computerPlay()));
+            roundWinner.textContent = result;
+            roundResult.appendChild(roundWinner);
+            console.log(result)
+            if(result.includes("You win")){
+                ++playerPoints;
+            }else if(result.includes("You lose")){
+                ++compPoints;
+            }
+
+            console.log(`Player points: ${playerPoints} Computer Points: ${compPoints}`);
+        });
     });
 
-    paper.addEventListener('click', () => {
-        console.log("Paper");
-        console.log(playRound('paper', computerPlay()));
-    });
-
-    scissors.addEventListener('click', () => {
-        console.log("Scissors");
-        console.log(playRound('scissors', computerPlay()));
-    });
-
-    if(playerPoints > compPoints){
-        console.log("Player wins! Great job!")
-    }else if(compPoints > playerPoints){
-        console.log("Computer wins! Better luck next time.")
-    }else{
-        console.log("It's a tie!")
-    }
+    // if(playerPoints > compPoints){
+    //     console.log("Player wins! Great job!")
+    // }else if(compPoints > playerPoints){
+    //     console.log("Computer wins! Better luck next time.")
+    // }else{
+    //     console.log("It's a tie!")
+    // }
 
 
 
