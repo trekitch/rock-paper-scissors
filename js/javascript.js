@@ -44,24 +44,6 @@ function playRound(playerSelection, computerSelection){
     
 }
 
-//gets player selection
-function userPlay(){
-    let validPick = false;
-
-    while(validPick == false){
-        let playerSelection = prompt("Rock, Paper or Scissors").toLowerCase()
-
-        if(playerSelection != "rock" && playerSelection != "paper" && playerSelection != "scissors"){
-            alert("Invalid pick")
-            validPick = false;
-        }else{
-            console.log("Player picked: ", playerSelection);
-            validPick  = true;
-            return playerSelection
-        }
-    }
-}
-
 //play the game
 function game(){
     //keep track of points
