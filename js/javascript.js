@@ -5,6 +5,9 @@ const paper = document.createElement('button');
 const scissors = document.createElement('button');
 const roundWinner = document.createElement('p');
 
+let compPoints = 0;
+let playerPoints = 0;
+
 // computer picks rock, paper, or scissors
 function computerPlay(){
     //array of options
@@ -62,9 +65,6 @@ function userPlay(){
 //play the game
 function game(){
     //keep track of points
-    let compPoints = 0;
-    let playerPoints = 0;
-    let gamesPlayed = 0;
 
     //creates rps buttons
     rock.textContent = 'Rock';    
@@ -90,26 +90,22 @@ function game(){
             roundWinner.textContent = result;
             roundResult.appendChild(roundWinner);
             console.log(result)
-            if(result.includes("You win")){
-                ++playerPoints;
-            }else if(result.includes("You lose")){
-                ++compPoints;
-            }
+
+            //calls funtion to decide the winner
+            determineWinner(result);
 
             console.log(`Player points: ${playerPoints} Computer Points: ${compPoints}`);
         });
     });
 
-    // if(playerPoints > compPoints){
-    //     console.log("Player wins! Great job!")
-    // }else if(compPoints > playerPoints){
-    //     console.log("Computer wins! Better luck next time.")
-    // }else{
-    //     console.log("It's a tie!")
-    // }
+}
 
-
-
+function determineWinner(result){
+    if(result.includes("You win")){
+        ++playerPoints;
+    }else if(result.includes("You lose")){
+        ++compPoints;
+    }
 }
 
 game()
