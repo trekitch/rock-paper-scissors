@@ -5,6 +5,7 @@ const paper = document.createElement('button');
 const scissors = document.createElement('button');
 const roundWinner = document.createElement('p');
 
+//keep track of player and computer points
 let compPoints = 0;
 let playerPoints = 0;
 
@@ -46,8 +47,6 @@ function playRound(playerSelection, computerSelection){
 
 //play the game
 function game(){
-    //keep track of points
-
     //creates rps buttons
     rock.textContent = 'Rock';    
     paper.textContent = 'Paper';    
