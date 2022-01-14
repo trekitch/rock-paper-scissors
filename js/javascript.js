@@ -1,13 +1,16 @@
 const container = document.querySelector('#container');
 const roundResult = document.querySelector('.roundResult');
+const scores = document.querySelector('.scores');
 const rock = document.createElement('button');
 const paper = document.createElement('button');
 const scissors = document.createElement('button');
 const roundWinner = document.createElement('p');
+const points = document.createElement('p');
 
 //keep track of player and computer points
 let compPoints = 0;
 let playerPoints = 0;
+const winningScore = 5;
 
 // computer picks rock, paper, or scissors
 function computerPlay(){
@@ -75,7 +78,13 @@ function game(){
             //calls funtion to decide the winner
             determineWinner(result);
 
-            console.log(`Player points: ${playerPoints} Computer Points: ${compPoints}`);
+            displayPoints(playerPoints, compPoints)
+
+            if(playerPoints == winningScore){
+                return "You win"
+            }else if(compPoints == winningScore){
+                return "You lose"
+            }
         });
     });
 
@@ -87,6 +96,12 @@ function determineWinner(result){
     }else if(result.includes("You lose")){
         ++compPoints;
     }
+}
+
+function displayPoints(playerPoints, compPoints){
+    let pointsDisplay = (`Player point: ${playerPoints} Computer Points: ${compPoints}`)
+    points.textContent = pointsDisplay;
+    scores.appendChild(points);
 }
 
 game()
