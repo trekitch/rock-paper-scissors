@@ -1,7 +1,13 @@
+//constant variables for items on the page
 const container = document.querySelector('#container');
 const roundResult = document.querySelector('.roundResult');
 const gameResult = document.querySelector('.gameResult');
 const scores = document.querySelector('.scores');
+const options = document.querySelector('.options');
+const playerImage = document.querySelector('.player-img');
+const computerImage = document.querySelector('.computer-img');
+
+//constant variables for elements
 const rock = document.createElement('button');
 const paper = document.createElement('button');
 const scissors = document.createElement('button');
@@ -60,9 +66,9 @@ function game(){
     scissors.textContent = 'Scissors'
 
     //adds buttons to the container div
-    container.appendChild(rock);
-    container.appendChild(paper);
-    container.appendChild(scissors);
+    options.appendChild(rock);
+    options.appendChild(paper);
+    options.appendChild(scissors);
 
     //creates node list of buttons
     const buttons = document.querySelectorAll('button');
@@ -75,15 +81,38 @@ function game(){
         button.addEventListener('click', () => {
             
             if(playGame){
-                let result = (playRound(button.textContent.toLowerCase(), computerPlay()));
+                let playerChoice = button.textContent.toLowerCase();
+                let computerChoice = computerPlay()
+                let result = (playRound(playerChoice, computerChoice));
+
+                if(playerChoice == 'rock'){
+                    playerImage.src = './imgs/rock.png'
+                }else if(playerChoice == 'paper'){
+                    playerImage.src = './imgs/paper.png'
+                }else{
+                    playerImage.src = './imgs/scissors.png'
+                }
+
+                if(computerChoice == 'rock'){
+                    computerImage.src = './imgs/rock.png'
+                }else if(computerChoice == 'paper'){
+                    computerImage.src = './imgs/paper.png'
+                }else{
+                    computerImage.src = './imgs/scissors.png'
+                }
+
+                
+
                 roundWinner.textContent = result;
                 roundResult.appendChild(roundWinner);
     
                 //calls funtion to decide the winner
                 determineWinner(result);
-    
+                
+                //calls function to display points
                 displayPoints(playerPoints, compPoints)
 
+                //decides if game is over or not. If game over display result
                 if(playerPoints == winningScore || compPoints == winningScore){
                     playGame = false;
                     determineGameWinner(playerPoints, compPoints);
