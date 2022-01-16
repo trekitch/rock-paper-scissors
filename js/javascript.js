@@ -1,11 +1,13 @@
 const container = document.querySelector('#container');
 const roundResult = document.querySelector('.roundResult');
+const gameResult = document.querySelector('.gameResult');
 const scores = document.querySelector('.scores');
 const rock = document.createElement('button');
 const paper = document.createElement('button');
 const scissors = document.createElement('button');
 const roundWinner = document.createElement('p');
 const points = document.createElement('p');
+const gameWinner = document.createElement('p');
 
 //keep track of player and computer points
 let compPoints = 0;
@@ -50,6 +52,8 @@ function playRound(playerSelection, computerSelection){
 
 //play the game
 function game(){
+
+    let playGame = true;
     //creates rps buttons
     rock.textContent = 'Rock';    
     paper.textContent = 'Paper';    
@@ -69,32 +73,36 @@ function game(){
     // lose
     buttons.forEach(button => {
         button.addEventListener('click', () => {
-            console.log(`Player choice: ${button.textContent}`)
-            let result = (playRound(button.textContent.toLowerCase(), computerPlay()));
-            roundWinner.textContent = result;
-            roundResult.appendChild(roundWinner);
-            console.log(result)
+            
+            if(playGame){
+                let result = (playRound(button.textContent.toLowerCase(), computerPlay()));
+                roundWinner.textContent = result;
+                roundResult.appendChild(roundWinner);
+    
+                //calls funtion to decide the winner
+                determineWinner(result);
+    
+                displayPoints(playerPoints, compPoints)
 
-            //calls funtion to decide the winner
-            determineWinner(result);
-
-            displayPoints(playerPoints, compPoints)
-
-            if(playerPoints == winningScore){
-                return "You win"
-            }else if(compPoints == winningScore){
-                return "You lose"
+                if(playerPoints == winningScore || compPoints == winningScore){
+                    playGame = false;
+                    determineGameWinner(playerPoints, compPoints);
+                    gameResult.appendChild(gameWinner);
+                }
             }
+            
         });
+
     });
+
 
 }
 
 function determineWinner(result){
     if(result.includes("You win")){
-        ++playerPoints;
+        playerPoints++;
     }else if(result.includes("You lose")){
-        ++compPoints;
+        compPoints++;
     }
 }
 
@@ -102,6 +110,16 @@ function displayPoints(playerPoints, compPoints){
     let pointsDisplay = (`Player point: ${playerPoints} Computer Points: ${compPoints}`)
     points.textContent = pointsDisplay;
     scores.appendChild(points);
+}
+
+function determineGameWinner(playerPoints, compPoints){
+    if(playerPoints > compPoints){
+        gameWinner.textContent = "You Win!!!"
+        return true
+        
+    }else if(playerPoints < compPoints){
+        gameWinner.textContent = "You lose!!!"
+    }
 }
 
 game()
