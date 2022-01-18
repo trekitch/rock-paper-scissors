@@ -1,5 +1,6 @@
 //constant variables for items on the page
 const container = document.querySelector('#container');
+const reset = document.querySelector('#reset');
 const roundResult = document.querySelector('.roundResult');
 const gameResult = document.querySelector('.gameResult');
 const scores = document.querySelector('.scores');
@@ -9,8 +10,11 @@ const computerImage = document.querySelector('.computer-img');
 
 //constant variables for elements
 const rock = document.createElement('button');
+rock.classList.add("optionsButtons")
 const paper = document.createElement('button');
+paper.classList.add("optionsButtons")
 const scissors = document.createElement('button');
+scissors.classList.add("optionsButtons")
 const roundWinner = document.createElement('p');
 const points = document.createElement('p');
 const gameWinner = document.createElement('p');
@@ -71,7 +75,7 @@ function game(){
     options.appendChild(scissors);
 
     //creates node list of buttons
-    const buttons = document.querySelectorAll('button');
+    const buttons = document.querySelectorAll('.optionsButtons');
 
     //adds a click event listener to all the buttons
     // pass the button choice to the playRound method as a strong
@@ -85,8 +89,13 @@ function game(){
                 let computerChoice = computerPlay()
                 let result = (playRound(playerChoice, computerChoice));
 
+                //displays images
+                playerImage.style.display = "block";
+                computerImage.style.display = "block";
+
                 if(playerChoice == 'rock'){
                     playerImage.src = './imgs/rock.png'
+                    
                 }else if(playerChoice == 'paper'){
                     playerImage.src = './imgs/paper.png'
                 }else{
@@ -124,6 +133,19 @@ function game(){
 
     });
 
+    //reset button logic
+    reset.onclick = () => {
+        points.textContent = "";
+        gameWinner.textContent = "";
+        roundResult.textContent = "";
+
+        playerPoints = 0;
+        compPoints = 0;
+        playGame = true;
+
+        playerImage.style.display = "none";
+        computerImage.style.display = "none";
+    }
 
 }
 
